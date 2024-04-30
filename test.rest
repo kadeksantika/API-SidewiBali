@@ -1,0 +1,27 @@
+POST http://localhost:3000/akun/add
+Content-Type: application/json
+
+{
+    "email":"test2@gmail.com",
+    "password":"12341234",
+    "foto":"tes.jpg",
+    "role":"ADMIN"
+}
+###
+POST http://localhost:3000/akun/login
+Content-Type: application/json
+
+{
+    "email":"te3t@gmail.com",
+    "password":"12341234"
+}
+###
+GET http://localhost:3000/akun
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtYSI6InNhbiIsImVtYWlsIjoidGUzdEBnbWFpbC5jb20iLCJpYXQiOjE3MTM5NjQxODcsImV4cCI6MTcxMzk2NDIwN30.-MN9Mrq-l94e9jahd1IBmczkWT5Nf-vb9GwidzcLfBE
+
+###
+GET http://localhost:3000/akun/token
+
+###
+DELETE  http://localhost:3000/akun/logout
+
