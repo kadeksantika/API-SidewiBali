@@ -10,7 +10,7 @@ router.post("/akun/login", AkunController.login );
 router.delete("/akun/logout", AkunController.logout );
 router.get("/akun/token", AkunController.refreshToken );
 router.post("/akun/add", AkunController.postAkun );
-router.get("/akun", AkunController.getAllAkun );
+router.get("/akun",checkAuth, AkunController.getAllAkun );
 router.get("/akun/:id_akun", AkunController.getOneAkun );
 router.patch("/akun/:id_akun", AkunController.updateAkun);
 router.delete("/akun/:id_akun", AkunController.deleteAkun );

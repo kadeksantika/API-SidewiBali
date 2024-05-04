@@ -2,7 +2,8 @@ POST http://localhost:3000/akun/add
 Content-Type: application/json
 
 {
-    "email":"test2@gmail.com",
+    "nama":"san",
+    "email":"teswt2@gmail.com",
     "password":"12341234",
     "foto":"tes.jpg",
     "role":"ADMIN"
@@ -17,11 +18,12 @@ Content-Type: application/json
 }
 ###
 GET http://localhost:3000/akun
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtYSI6InNhbiIsImVtYWlsIjoidGUzdEBnbWFpbC5jb20iLCJpYXQiOjE3MTM5NjQxODcsImV4cCI6MTcxMzk2NDIwN30.-MN9Mrq-l94e9jahd1IBmczkWT5Nf-vb9GwidzcLfBE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtYSI6InNhbiIsImVtYWlsIjoidGUzdEBnbWFpbC5jb20iLCJpYXQiOjE3MTQ3NDY4NzEsImV4cCI6MTcxNDgzMzI3MX0.9QpOTT0lh3KQP0JRoTUO6F7rtdPOlVepZfDM7nnHJ1E
 
 ###
 GET http://localhost:3000/akun/token
 
 ###
 DELETE  http://localhost:3000/akun/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtYSI6InNhbiIsImVtYWlsIjoidGUzdEBnbWFpbC5jb20iLCJpYXQiOjE3MTQ3NDY4NzEsImV4cCI6MTcxNDgzMzI3MX0.9QpOTT0lh3KQP0JRoTUO6F7rtdPOlVepZfDM7nnHJ1E
 
