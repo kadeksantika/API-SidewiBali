@@ -3,6 +3,7 @@ const Akun = require("../models/akun");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+
 exports.getAllAkun = async (req, res) => {
   try {
     const akunList = await Akun.findAll({
@@ -32,8 +33,8 @@ exports.getOneAkun = async (req, res) => {
 };
 exports.postAkun = async (req, res) => {
   try {
-    const { nama, email, password, foto, role } = req.body;
-    console.log(req.body);
+    const { nama, email, password, role } = req.body;
+    const foto = req.file.filename;
 
     // Generate salt untuk hash password
     const salt = await bcrypt.genSalt();
