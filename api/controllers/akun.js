@@ -34,7 +34,7 @@ exports.getOneAkun = async (req, res) => {
 exports.postAkun = async (req, res) => {
   try {
     const { nama, email, password, role } = req.body;
-    const foto = req.file.filename;
+    const foto = req.file ? req.file.filename : null;
 
     // Generate salt untuk hash password
     const salt = await bcrypt.genSalt();
@@ -184,7 +184,8 @@ exports.deleteAkun = async (req, res) => {
 exports.updateAkun = async (req, res) => {
   try {
     const id_akun = parseInt(req.params.id_akun);
-    const { nama, email, password, foto, role } = req.body;
+    const { nama, email, password, role } = req.body;
+    const foto = req.file ? req.file.filename : null;
 
     // Pastikan Akun telah diinisialisasi sebelumnya
     const akun = await Akun.findByPk(id_akun);

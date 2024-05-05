@@ -5,6 +5,7 @@ const KategoriDestinasiController = require("../controllers/kategoridestinasi");
 const {checkAuth} = require("../middleware/checkAuth");
 const upload = require('../../config/multerConfig');
 
+
 // Akun
 router.post("/akun/login", AkunController.login );
 router.delete("/akun/logout", AkunController.logout );
@@ -13,9 +14,9 @@ router.get("/akun/token", AkunController.refreshToken );
 // single('foto')-> Field yang berisi file
 router.post("/akun/add", upload('akun').single('foto'), AkunController.postAkun);
 router.get("/akun",checkAuth, AkunController.getAllAkun );
-router.get("/akun/:id_akun", AkunController.getOneAkun );
-router.patch("/akun/:id_akun", AkunController.updateAkun);
-router.delete("/akun/:id_akun", AkunController.deleteAkun );
+router.get("/akun/:id_akun",checkAuth, AkunController.getOneAkun );
+router.patch("/akun/:id_akun",checkAuth,upload('akun').single('foto'), AkunController.updateAkun);
+router.delete("/akun/:id_akun",checkAuth, AkunController.deleteAkun );
 
 // Kategori Destinasi
 router.post("/kategoridestinasi/add", KategoriDestinasiController.postKategoriDestinasi);
