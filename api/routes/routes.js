@@ -23,6 +23,7 @@ router.post("/desawisata/add",upload('desawisata').single('gambar'), DesaWisataC
 router.patch("/desawisata/:id",upload('desawisata').single('gambar'), DesaWisataController.updateDesaWisata);
 router.delete("/desawisata/:id", DesaWisataController.deleteDesaWisata );
 router.get("/desawisata/:id", DesaWisataController.getOneDesaWisata );
+router.get("/desawisata", DesaWisataController.getAllDesaWisata );
 
 
 // Kategori Destinasi

@@ -202,5 +202,16 @@ exports.deleteDesaWisata = async (req, res) => {
       res.status(500).json({ error: "Internal Server Error" });
     }
   };
+  exports.getAllDesaWisata = async (req, res) => {
+    try {
+      const desaWisataList = await DesaWisata.findAll({
+        attributes: { exclude: [] },
+      });
+      res.json(desaWisataList);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
 
   
