@@ -20,6 +20,7 @@ router.delete("/akun/:id_akun",checkAuth, AkunController.deleteAkun );
 
 // Desa wisata
 router.post("/desawisata/add",upload('desawisata').single('gambar'), DesaWisataController.postDesaWisata);
+router.patch("/desawisata/:id",upload('desawisata').single('gambar'), DesaWisataController.updateDesaWisata);
 
 
 
