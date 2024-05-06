@@ -22,6 +22,7 @@ router.delete("/akun/:id_akun",checkAuth, AkunController.deleteAkun );
 router.post("/desawisata/add",upload('desawisata').single('gambar'), DesaWisataController.postDesaWisata);
 
 
+
 // Kategori Destinasi
 router.post("/kategoridestinasi/add", KategoriDestinasiController.postKategoriDestinasi);
 router.get("/kategoridestinasi", AkunController.getAllAkun );
