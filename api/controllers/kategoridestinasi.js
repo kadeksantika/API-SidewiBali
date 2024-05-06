@@ -31,3 +31,62 @@ exports.postKategoriDestinasi = async (req, res) => {
         }
     }
 }
+
+exports.getOneKategoriDestinasi = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const kategoridestinasi = await kategoriDestinasi.findAll({ where: { id:id } });
+        if (!kategoridestinasi) {
+            return res.status(404).json({ error: "Not found" });
+        }
+        res.json(kategoridestinasi);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}
+
+exports.updateKategoriDestinasi = async(req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        const { nama } = req.body;
+
+        // Pastikan Kategori Destinasi telah diinisialisasi sebelumnya
+        const kategoridestinasi = await kategoriDestinasi.findByPk(id);
+        
+        if (!kategoridestinasi) {
+            return res.status(404).json({ message: "Kategori destinasi tidak ditemukan" });
+        }
+
+        if (nama) {
+            kategoridestinasi.nama = nama;
+        }
+
+        await kategoridestinasi.save();
+
+        return res.status(200).json({ message: "Kategori destinasi berhasil diperbarui", updatedKategoriDestinasi: kategoridestinasi });
+    } catch (error) {
+        console.error("Error updating kategori destinasi:", error);
+        return res.status(500).json({ message: "Terjadi kesalahan saat memperbarui kategori destinasi", error });
+    }
+};
+
+
+exports.deleteKategoriDestinasi = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletedkategoridestinasi = await kategoriDestinasi.destroy({
+            where: {
+                id: id
+            }
+        });
+        if (deletedkategoridestinasi > 0) {
+            return res.status(200).json({ message: "Kategori destinasi berhasil dihapus" });
+        } else {
+            return res.status(404).json({ message: "Kategori destinasi tidak ditemukan" });
+        }
+    } catch (error) {
+        console.error("Error deleting kategori destinasi:", error);
+        return res.status(500).json({ message: "Terjadi kesalahan saat menghapus kategori destinasi", error });
+    }
+};

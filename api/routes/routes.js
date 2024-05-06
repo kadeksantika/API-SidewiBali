@@ -28,7 +28,11 @@ router.get("/desawisata", DesaWisataController.getAllDesaWisata );
 
 // Kategori Destinasi
 router.post("/kategoridestinasi/add", KategoriDestinasiController.postKategoriDestinasi);
-router.get("/kategoridestinasi", AkunController.getAllAkun );
+router.get("/kategoridestinasi/:id", KategoriDestinasiController.getOneKategoriDestinasi );
+router.get("/kategoridestinasi", KategoriDestinasiController.getAllKategoriDestinasi );
+router.patch("/kategoridestinasi/:id", KategoriDestinasiController.updateKategoriDestinasi);
+router.delete("/kategoridestinasi/:id", KategoriDestinasiController.deleteKategoriDestinasi );
+
 
 
 
