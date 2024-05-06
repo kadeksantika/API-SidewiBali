@@ -49,7 +49,6 @@ exports.postDesaWisata = async (req, res) => {
 
     // Hapus file gambar yang sudah diunggah jika ada error
     if (req.file) {
-      const fs = require("fs");
       const tempImagePath = req.file.path;
       try {
         fs.unlinkSync(tempImagePath);
@@ -151,7 +150,6 @@ exports.updateDesaWisata = async (req, res) => {
 
     // Hapus file gambar yang sudah diunggah jika ada error
     if (req.file) {
-      const fs = require("fs");
       const tempImagePath = req.file.path;
       try {
         fs.unlinkSync(tempImagePath);
