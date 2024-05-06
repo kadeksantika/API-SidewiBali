@@ -189,3 +189,18 @@ exports.deleteDesaWisata = async (req, res) => {
     }
   };
   
+  exports.getOneDesaWisata = async (req, res) => {
+    const { id } = req.params;
+    try {
+      const desaWisata = await DesaWisata.findOne({ where: { id: id} });
+      if (!desaWisata) {
+        return res.status(404).json({ error: "Desa wisata tidak ditemukan" });
+      }
+      res.json(desaWisata);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+
+  
