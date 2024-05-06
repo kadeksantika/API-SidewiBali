@@ -2,7 +2,8 @@
 const Akun = require("../models/akun");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
+const fs = require("fs");
+const path = require('path');
 
 exports.getAllAkun = async (req, res) => {
   try {
@@ -31,11 +32,22 @@ exports.getOneAkun = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
 exports.postAkun = async (req, res) => {
   try {
-    const { nama, email, password, role } = req.body;
+    const { nama, email, password } = req.body;
     const foto = req.file ? req.file.filename : null;
+    let role = req.body ? req.body.role : null;
 
+    // set default role
+    if (!role) {
+      role = "USER";
+    }
+
+    // Validasi enum role
+    if (!Object.values(["USER", "ADMIN", "SUPERADMIN"]).includes(role)) {
+      throw new Error("Invalid value for 'role'.");
+    }
     // Generate salt untuk hash password
     const salt = await bcrypt.genSalt();
 
@@ -54,6 +66,20 @@ exports.postAkun = async (req, res) => {
     // Kirim respons bahwa registrasi berhasil
     res.json({ msg: "Registration successful" });
   } catch (error) {
+    console.log(error);
+
+    // Hapus file gambar yang sudah diunggah jika ada error
+    if (req.file) {
+      const tempImagePath = req.file.path;
+      try {
+        fs.unlinkSync(tempImagePath);
+        console.log("Uploaded image deleted due to failed data saving.");
+      } catch (error) {
+        console.error("Error deleting uploaded image:", error);
+      }
+    }
+
+    // error response
     if (error.name === "SequelizeUniqueConstraintError") {
       res.status(400).json({ error: "Email already exists" });
     } else if (error.name === "SequelizeValidationError") {
@@ -89,10 +115,10 @@ exports.login = async (req, res) => {
     const accessToken = jwt.sign(
       { id, nama, email },
       process.env.ACCESS_TOKEN_SECRET
-    //   ,
-    //   {
-    //     expiresIn: "1d",
-    //   }
+      //   ,
+      //   {
+      //     expiresIn: "1d",
+      //   }
     );
     await Akun.update(
       { token: accessToken },
@@ -104,10 +130,9 @@ exports.login = async (req, res) => {
     );
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-    //   maxAge: 24 * 60 * 60 * 1000,
+      //   maxAge: 24 * 60 * 60 * 1000,
     });
 
-   
     res.json(accessToken);
   } catch (error) {
     console.error(error);
@@ -163,29 +188,48 @@ exports.login = async (req, res) => {
 exports.deleteAkun = async (req, res) => {
   try {
     const { id_akun } = req.params;
+    const akun = await Akun.findOne({ where: { id: id_akun } });
+
+    if (!akun) {
+      return res.status(404).json({ message: "Akun tidak ditemukan" });
+    }
+
+    const fotoAkunLama = akun.foto;
+
     const deletedAccountCount = await Akun.destroy({
       where: {
         id: id_akun,
       },
     });
+
     if (deletedAccountCount > 0) {
+      if (fotoAkunLama) {
+        const imagePath = path.join(__dirname, "../../uploads/resource/akun", fotoAkunLama);
+
+        if (fs.existsSync(imagePath)) {
+          fs.unlinkSync(imagePath);
+          console.log("Foto akun berhasil dihapus:", fotoAkunLama);
+        } else {
+          console.log("Foto akun tidak ditemukan:", fotoAkunLama);
+        }
+      }
+
       return res.status(200).json({ message: "Akun berhasil dihapus" });
     } else {
       return res.status(404).json({ message: "Akun tidak ditemukan" });
     }
   } catch (error) {
     console.error("Error deleting account:", error);
-    return res
-      .status(500)
-      .json({ message: "Terjadi kesalahan saat menghapus akun", error });
+    return res.status(500).json({ message: "Terjadi kesalahan saat menghapus akun", error });
   }
 };
 
 exports.updateAkun = async (req, res) => {
   try {
     const id_akun = parseInt(req.params.id_akun);
-    const { nama, email, password, role } = req.body;
+    const { nama, email, password } = req.body;
     const foto = req.file ? req.file.filename : null;
+    let role = req.body ? req.body.role : null;
 
     // Pastikan Akun telah diinisialisasi sebelumnya
     const akun = await Akun.findByPk(id_akun);
@@ -206,9 +250,26 @@ exports.updateAkun = async (req, res) => {
       akun.password = hashPassword;
     }
     if (foto) {
+      // Jika ada foto lama masih tersimpan ketika ada pembaruan foto, maka hapus foto lama
+      if (akun.foto) {
+        const imagePath = path.join(
+          __dirname,
+          "../../uploads/resource/akun",
+          akun.foto
+        );
+        try {
+          fs.unlinkSync(imagePath);
+        } catch (error) {
+          console.error("Error deleting previous image:", error);
+        }
+      }
       akun.foto = foto;
     }
     if (role) {
+      // Validasi enum role
+      if (!Object.values(["USER", "ADMIN", "SUPERADMIN"]).includes(role)) {
+        throw new Error("Invalid value for 'role'.");
+      }
       akun.role = role;
     }
 
@@ -219,6 +280,18 @@ exports.updateAkun = async (req, res) => {
       .json({ message: "Akun berhasil diperbarui", updatedAccount: akun });
   } catch (error) {
     console.error("Error updating account:", error);
+
+    // Hapus file gambar yang sudah diunggah jika ada error
+    if (req.file) {
+      const tempImagePath = req.file.path;
+      try {
+        fs.unlinkSync(tempImagePath);
+        console.log("Uploaded image deleted due to failed data saving.");
+      } catch (error) {
+        console.error("Error deleting uploaded image:", error);
+      }
+    }
+
     return res
       .status(500)
       .json({ message: "Terjadi kesalahan saat memperbarui akun", error });
@@ -275,7 +348,7 @@ exports.logout = async (req, res) => {
       }
     );
     res.clearCookie("accessToken");
-    
+
     return res.sendStatus(200);
   } catch (error) {
     console.error(error);
