@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const AkunController = require("../controllers/akun");
 const DesaWisataController = require("../controllers/desawisata");
+const DestinasiWisataController = require("../controllers/destinasiwisata");
 const KategoriDestinasiController = require("../controllers/kategoridestinasi");
 const {checkAuth} = require("../middleware/checkAuth");
 const upload = require('../../config/multerConfig');
@@ -9,8 +10,8 @@ const upload = require('../../config/multerConfig');
 
 // Akun
 router.post("/akun/login", AkunController.login );
-// upload('akun')-> upload ke folder Akun
-// single('foto')-> Field yang berisi file
+/* upload('akun')-> upload ke folder Akun
+single('foto')-> Field yang berisi file */
 router.post("/akun/add", upload('akun').single('foto'), AkunController.postAkun);
 router.delete("/akun/logout",checkAuth, AkunController.logout );
 router.get("/akun",checkAuth, AkunController.getAllAkun );
@@ -33,7 +34,12 @@ router.get("/kategoridestinasi", KategoriDestinasiController.getAllKategoriDesti
 router.patch("/kategoridestinasi/:id", KategoriDestinasiController.updateKategoriDestinasi);
 router.delete("/kategoridestinasi/:id", KategoriDestinasiController.deleteKategoriDestinasi );
 
-
+// Destinasi wisata
+router.post("/destinasiwisata/add",upload('destinasiwisata').single('gambar'), DestinasiWisataController.postDestinasiWisata);
+router.patch("/destinasiwisata/:id",upload('destinasiwisata').single('gambar'), DestinasiWisataController.updateDestinasiWisata);
+router.delete("/destinasiwisata/:id", DestinasiWisataController.deleteDestinasiWisata );
+router.get("/destinasiwisata/:id", DestinasiWisataController.getOneDestinasiWisata );
+router.get("/destinasiwisata", DestinasiWisataController.getAllDestinasiWisata );
 
 
 // Export

@@ -8,7 +8,7 @@ const path = require('path');
 exports.getAllAkun = async (req, res) => {
   try {
     const akunList = await Akun.findAll({
-      attributes: { exclude: [] },
+      attributes: { exclude: ["token","password"] },
     });
     const accessTokenCookies = req.cookies.accessToken;
     console.log("Access token:", accessTokenCookies);
