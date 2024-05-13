@@ -297,20 +297,12 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false
       },
-      penulis: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-      },
       isi_berita: {
         type: Sequelize.TEXT,
         allowNull: false
       },
       slug: {
-        type: Sequelize.STRING(50),
-        allowNull: false
-      },
-      tgl_upload: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING(60),
         allowNull: false
       },
       id_desawisata: {
@@ -507,16 +499,8 @@ module.exports = {
         allowNull: false
       },
       status: {
-        type: Sequelize.STRING(10),
+        type: Sequelize.BOOLEAN,
         allowNull: false
-      },
-      created_at: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updated_at: {
-        allowNull: false,
-        type: Sequelize.DATE
       },
       id_akun: {
         type: Sequelize.INTEGER,

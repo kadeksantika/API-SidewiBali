@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const db = require('../../config/database');
 
+
 const desaWisata = db.define('tb_desawisata',{
     nama: {
         type: DataTypes.STRING,
@@ -35,9 +36,6 @@ const desaWisata = db.define('tb_desawisata',{
         type: DataTypes.ENUM('Badung', 'Bangli', 'Buleleng', 'Denpasar', 'Gianyar', 'Jembrana', 'Karangasem', 'Klungkung', 'Tabanan'),
         allowNull: false
     }
-    
-
-    
 }, {
     freezeTableName:true
 });

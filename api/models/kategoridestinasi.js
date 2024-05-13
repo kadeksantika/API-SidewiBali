@@ -14,5 +14,7 @@ const kategoriDestinasi = db.define('tb_kategoridestinasi',{
 {
   freezeTableName:true
 })
+
+
  
 module.exports = kategoriDestinasi

@@ -1,7 +1,6 @@
 const { DataTypes } = require('sequelize');
 const db = require('../../config/database');
-const KategoriDestinasi = require('./kategoridestinasi');
-const DesaWisata = require('./desawisata');
+
 
 const destinasiWisata = db.define('tb_destinasiwisata',{
     nama: {
@@ -9,7 +8,7 @@ const destinasiWisata = db.define('tb_destinasiwisata',{
         allowNull: false,
         unique: false,
         validate: {
-            len: [1, 25]
+            len: [1, 50]
         }
     },
     gambar: {
@@ -32,8 +31,6 @@ const destinasiWisata = db.define('tb_destinasiwisata',{
     freezeTableName:true
 });
 
-destinasiWisata.hasOne(KategoriDestinasi, { foreignKey: 'id' });
-destinasiWisata.belongsTo(DesaWisata, { foreignKey: 'id_desawisata' });
 
 // Penanganan kesalahan saat menyinkronkan model dengan database
 destinasiWisata.sync().then(() => {
