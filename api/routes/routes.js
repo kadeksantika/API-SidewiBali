@@ -4,6 +4,7 @@ const AkunController = require("../controllers/akun");
 const DesaWisataController = require("../controllers/desawisata");
 const DestinasiWisataController = require("../controllers/destinasiwisata");
 const KategoriDestinasiController = require("../controllers/kategoridestinasi");
+const InformasiController = require("../controllers/informasi");
 const {checkAuth} = require("../middleware/checkAuth");
 const upload = require('../../config/multerConfig');
 
@@ -41,6 +42,12 @@ router.delete("/destinasiwisata/:id", DestinasiWisataController.deleteDestinasiW
 router.get("/destinasiwisata/:id", DestinasiWisataController.getOneDestinasiWisata );
 router.get("/destinasiwisata", DestinasiWisataController.getAllDestinasiWisata );
 
+// Informasi
+router.post("/informasi/add",upload('informasi').single('gambar'), InformasiController.postInformasi);
+router.patch("/informasi/:id",upload('informasi').single('gambar'), InformasiController.updateInformasi);
+router.delete("/informasi/:id", InformasiController.deleteInformasi );
+router.get("/informasi/:id", InformasiController.getOneInformasi );
+router.get("/informasi", InformasiController.getAllInformasi );
 
 // Export
 module.exports = router;
