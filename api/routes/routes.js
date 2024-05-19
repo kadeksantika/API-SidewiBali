@@ -4,6 +4,7 @@ const AkunController = require("../controllers/akun");
 const DesaWisataController = require("../controllers/desawisata");
 const DestinasiWisataController = require("../controllers/destinasiwisata");
 const KategoriDestinasiController = require("../controllers/kategoridestinasi");
+const NotifikasiController = require("../controllers/notifikasi");
 const {checkAuth} = require("../middleware/checkAuth");
 const upload = require('../../config/multerConfig');
 
@@ -33,6 +34,13 @@ router.get("/kategoridestinasi/:id", KategoriDestinasiController.getOneKategoriD
 router.get("/kategoridestinasi", KategoriDestinasiController.getAllKategoriDestinasi );
 router.patch("/kategoridestinasi/:id", KategoriDestinasiController.updateKategoriDestinasi);
 router.delete("/kategoridestinasi/:id", KategoriDestinasiController.deleteKategoriDestinasi );
+
+// Notifikasi
+router.post("/notifikasi/add", NotifikasiController.postNotifikasi);
+router.get("/notifikasi/:id", NotifikasiController.getOneNotifikasi );
+router.get("/notifikasi", NotifikasiController.getAllNotifikasi );
+router.patch("/notifikasi/:id", NotifikasiController.updateNotifikasi);
+router.delete("/notifikasi/:id", NotifikasiController.deleteNotifikasi );
 
 // Destinasi wisata
 router.post("/destinasiwisata/add",upload('destinasiwisata').single('gambar'), DestinasiWisataController.postDestinasiWisata);
