@@ -154,7 +154,18 @@ module.exports = {
       id_akun: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        primaryKey: true
+        references: {
+          model: 'tb_akun',
+          key: 'id'
+        },
+      },
+      id_desawisata: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'tb_desawisata',
+          key: 'id'
+        },
       },
       createdAt: {
         type: Sequelize.DATE,
