@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
+    "username": "dbmasteruser",
+    "password": "$?9e8SH)E>}21&]ln6}ke}M5<LK^y`X5",
     "database": "db_sidewi_provbali",
-    "host": "127.0.0.1",
+    "host": "ls-662da47c0dd232d68a24961ebe6a6400a9738f01.cno8wo8uo4fl.ap-southeast-1.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": null,
+    "username": "dbmasteruser",
+    "password": "$?9e8SH)E>}21&]ln6}ke}M5<LK^y`X5",
     "database": "db_sidewi_provbali",
-    "host": "127.0.0.1",
+    "host": "ls-662da47c0dd232d68a24961ebe6a6400a9738f01.cno8wo8uo4fl.ap-southeast-1.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
+    "username": "dbmasteruser",
+    "password": "$?9e8SH)E>}21&]ln6}ke}M5<LK^y`X5",
     "database": "db_sidewi_provbali",
-    "host": "127.0.0.1",
+    "host": "1ls-662da47c0dd232d68a24961ebe6a6400a9738f01.cno8wo8uo4fl.ap-southeast-1.rds.amazonaws.com",
     "dialect": "mysql"
   }
 }
