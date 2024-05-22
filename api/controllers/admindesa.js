@@ -13,18 +13,18 @@ exports.getAllAdminDesa = async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 };
- 
+
 exports.postAdminDesa = async (req, res) => {
     try {
         const { id_akun, id_desawisata } = req.body
 
         const desawisata = await desaWisata.findByPk(id_desawisata);
-        
+
         if (!desawisata) {
             return res.status(404).json({ message: "desa wisata tidak ditemukan" });
         }
         const akunlist = await akun.findByPk(id_akun);
-        
+
         if (!akunlist) {
             return res.status(404).json({ message: "akun tidak ditemukan" });
         }
@@ -48,17 +48,17 @@ exports.postAdminDesa = async (req, res) => {
 
         await adminDesa.create({
             id_akun: id_akun,
-            id_desawisata:id_desawisata
+            id_desawisata: id_desawisata
         });
 
-        return res.json({ msg: "Add successful"})
+        return res.json({ msg: "Add successful" })
     } catch (error) {
         console.error(error);
         // if (error.adminDesa === 'SequelizeUniqueConstraintError') {
         //     res.status(400).json({ error: 'Constraint Error' });
         // }else {
-            console.error("Error while creating admindesa:", error);
-            res.status(500).json({ error: "Internal Server Error" });
+        console.error("Error while creating admindesa:", error);
+        res.status(500).json({ error: "Internal Server Error" });
         // }
     }
 }
@@ -66,7 +66,7 @@ exports.postAdminDesa = async (req, res) => {
 exports.getOneAdminDesa = async (req, res) => {
     const { id } = req.params;
     try {
-        const admindesa = await adminDesa.findAll({ where: { id:id } });
+        const admindesa = await adminDesa.findAll({ where: { id: id } });
         if (!admindesa) {
             return res.status(404).json({ error: "Not found" });
         }
@@ -80,7 +80,7 @@ exports.getAdminDesaByIdAkun = async (req, res) => {
     const { id } = req.params;
     // return res.json(id)
     try {
-        const admindesa = await adminDesa.findAll({ where: { id_akun:id } });
+        const admindesa = await adminDesa.findAll({ where: { id_akun: id } });
         if (!admindesa) {
             return res.status(404).json({ error: "Not found" });
         }
@@ -91,33 +91,48 @@ exports.getAdminDesaByIdAkun = async (req, res) => {
     }
 }
 
-exports.updateAdminDesa = async(req, res) => {
+exports.updateAdminDesa = async (req, res) => {
     try {
         const id = parseInt(req.params.id);
         const { id_akun, id_desawisata } = req.body
 
         // Pastikan Kategori Destinasi telah diinisialisasi sebelumnya
         const admindesa = await adminDesa.findByPk(id);
-        
+
         if (!admindesa) {
             return res.status(404).json({ message: "admin desa tidak ditemukan" });
         }
 
         const desawisata = await desaWisata.findByPk(id_desawisata);
-        
+
         if (!desawisata) {
             return res.status(404).json({ message: "desa wisata tidak ditemukan" });
         }
         const akunlist = await akun.findByPk(id_akun);
-        
+
         if (!akunlist) {
             return res.status(404).json({ message: "akun tidak ditemukan" });
         }
-
         if (id_akun) {
+            const checkAdminDesaByAkun = await adminDesa.findOne({
+                where: {
+                    id_akun: id_akun
+                }
+            });
+            if (checkAdminDesaByAkun) {
+                return res.status(404).json({ message: "akun sudah menjadi suatu Admin desa" });
+            }
             admindesa.id_akun = id_akun
         }
         if (id_desawisata) {
+            const checkAdminDesaByDesa = await adminDesa.findOne({
+                where: {
+                    id_desawisata: id_desawisata
+                }
+            });
+            if (checkAdminDesaByDesa) {
+                return res.status(404).json({ message: "desa sudah memiliki Admin desa" });
+            }
             admindesa.id_desawisata = id_desawisata
         }
 
