@@ -158,6 +158,7 @@ module.exports = {
           model: 'tb_akun',
           key: 'id'
         },
+        unique: true,
       },
       id_desawisata: {
         type: Sequelize.INTEGER,
@@ -166,6 +167,7 @@ module.exports = {
           model: 'tb_desawisata',
           key: 'id'
         },
+        unique: true,
       },
       createdAt: {
         type: Sequelize.DATE,
