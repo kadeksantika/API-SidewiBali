@@ -4,6 +4,7 @@ const AkunController = require("../controllers/akun");
 const DesaWisataController = require("../controllers/desawisata");
 const DestinasiWisataController = require("../controllers/destinasiwisata");
 const KategoriDestinasiController = require("../controllers/kategoridestinasi");
+const AdminDesaController = require("../controllers/admindesa");
 const NotifikasiController = require("../controllers/notifikasi");
 const InformasiController = require("../controllers/informasi");
 const {checkAuth} = require("../middleware/checkAuth");
@@ -28,13 +29,20 @@ router.delete("/desawisata/:id", DesaWisataController.deleteDesaWisata );
 router.get("/desawisata/:id", DesaWisataController.getOneDesaWisata );
 router.get("/desawisata", DesaWisataController.getAllDesaWisata );
 
-
 // Kategori Destinasi
 router.post("/kategoridestinasi/add", KategoriDestinasiController.postKategoriDestinasi);
 router.get("/kategoridestinasi/:id", KategoriDestinasiController.getOneKategoriDestinasi );
 router.get("/kategoridestinasi", KategoriDestinasiController.getAllKategoriDestinasi );
 router.patch("/kategoridestinasi/:id", KategoriDestinasiController.updateKategoriDestinasi);
 router.delete("/kategoridestinasi/:id", KategoriDestinasiController.deleteKategoriDestinasi );
+
+// Admin desa
+router.post("/admindesa/add", AdminDesaController.postAdminDesa);
+router.get("/admindesa/:id", AdminDesaController.getOneAdminDesa );
+router.get("/admindesa/akun/:id", AdminDesaController.getAdminDesaByIdAkun );
+router.get("/admindesa", AdminDesaController.getAllAdminDesa );
+router.patch("/admindesa/:id", AdminDesaController.updateAdminDesa);
+router.delete("/admindesa/:id", AdminDesaController.deleteAdminDesa );
 
 // Notifikasi
 router.post("/notifikasi/add", NotifikasiController.postNotifikasi);
