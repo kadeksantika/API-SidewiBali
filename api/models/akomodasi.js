@@ -4,10 +4,6 @@ const db = require("../../config/database");
 const akomodasi = db.define(
   "tb_akomodasi",
   {
-    deskripsi: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
     nama: {
       type: DataTypes.STRING,
       allowNull: false,

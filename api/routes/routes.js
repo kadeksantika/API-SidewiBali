@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const AkunController = require("../controllers/akun");
 const DesaWisataController = require("../controllers/desawisata");
+const AkomodasiController = require("../controllers/akomodasi");
 const DestinasiWisataController = require("../controllers/destinasiwisata");
 const KategoriDestinasiController = require("../controllers/kategoridestinasi");
 const AdminDesaController = require("../controllers/admindesa");
@@ -28,6 +29,14 @@ router.patch("/desawisata/:id",upload('desawisata').single('gambar'), DesaWisata
 router.delete("/desawisata/:id", DesaWisataController.deleteDesaWisata );
 router.get("/desawisata/:id", DesaWisataController.getOneDesaWisata );
 router.get("/desawisata", DesaWisataController.getAllDesaWisata );
+
+// Akomodasi
+router.post("/akomodasi/add",upload('akomodasi').single('gambar'), AkomodasiController.postAkomodasi);
+router.patch("/akomodasi/:id",upload('akomodasi').single('gambar'), AkomodasiController.updateAkomodasi);
+router.delete("/akomodasi/:id", AkomodasiController.deleteAkomodasi );
+router.get("/akomodasi/:id", AkomodasiController.getOneAkomodasi );
+router.get("/akomodasi/desa/:id", AkomodasiController.getAkomodasiByIdDesa );
+router.get("/akomodasi", AkomodasiController.getAllAkomodasi );
 
 // Kategori Destinasi
 router.post("/kategoridestinasi/add", KategoriDestinasiController.postKategoriDestinasi);
