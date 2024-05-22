@@ -168,12 +168,11 @@ exports.getAkomodasiByIdDesa = async (req, res) => {
     if (!desaWisata) {
       return res.status(404).json({ error: "Desa wisata tidak ditemukan" });
     }
-    const akomodasi = await Akomodasi.findOne({ where: { id_desawisata: id } });
+    const akomodasi = await Akomodasi.findAll({ where: { id_desawisata: id } });
     if (!akomodasi) {
       return res.status(404).json({ error: "Akomodasi tidak ditemukan" });
     }
     res.json(akomodasi);
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
