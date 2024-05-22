@@ -9,9 +9,9 @@ const assetDestinasi = db.define(
         allowNull: false,
     },
     tipe: {
-        type: DataTypes.ENUM('Gambar', 'Video'),
+        type: DataTypes.ENUM('Foto', 'Video'),
         allowNull: false,
-        defaultValue: 'Gambar'
+        defaultValue: 'Foto'
     },
     id_destinasiwisata: {
       type: DataTypes.INTEGER,

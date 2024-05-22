@@ -3,6 +3,7 @@ const router = express.Router();
 const AkunController = require("../controllers/akun");
 const DesaWisataController = require("../controllers/desawisata");
 const AssetDesaController = require("../controllers/assetdesa");
+const AssetDestinasiController = require("../controllers/assetdestinasi");
 const AkomodasiController = require("../controllers/akomodasi");
 const DestinasiWisataController = require("../controllers/destinasiwisata");
 const KategoriDestinasiController = require("../controllers/kategoridestinasi");
@@ -75,6 +76,14 @@ router.patch("/destinasiwisata/:id",upload('destinasiwisata').single('gambar'), 
 router.delete("/destinasiwisata/:id", DestinasiWisataController.deleteDestinasiWisata );
 router.get("/destinasiwisata/:id", DestinasiWisataController.getOneDestinasiWisata );
 router.get("/destinasiwisata", DestinasiWisataController.getAllDestinasiWisata );
+
+// Asset Destinasi
+router.post("/assetDestinasi/add",upload('assetDestinasi').single('link'), AssetDestinasiController.postAssetDestinasi);
+router.patch("/assetDestinasi/:id",upload('assetDestinasi').single('link'), AssetDestinasiController.updateAssetDestinasi);
+router.delete("/assetDestinasi/:id", AssetDestinasiController.deleteAssetDestinasi );
+router.get("/assetDestinasi/:id", AssetDestinasiController.getOneAssetDestinasi );
+router.get("/assetDestinasi/destinasi/:id", AssetDestinasiController.getAssetDestinasiByIdDesa );
+router.get("/assetDestinasi", AssetDestinasiController.getAllAssetDestinasi );
 
 // Informasi
 router.post("/informasi/add",upload('informasi').single('gambar'), InformasiController.postInformasi);
