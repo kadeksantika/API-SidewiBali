@@ -2,12 +2,23 @@ const Akomodasi = require("../models/akomodasi");
 const DesaWisata = require("../models/desawisata");
 const fs = require("fs");
 const path = require("path");
+const slugify = require('slugify');
+const { Op } = require("sequelize")
 
 exports.postAkomodasi = async (req, res) => {
   try {
     const { nama, kategori, id_desawisata } = req.body;
-    //   cek apakah ada gambar di upload
+
     const gambar = req.file ? req.file.filename : null;
+
+    let slug = slugify(nama, { lower: true, strict: true });
+
+    let uniqueSlug = slug;
+    let count = 1;
+    while (await Akomodasi.findOne({ where: { slug: uniqueSlug } })) {
+      uniqueSlug = `${slug}-${count}`;
+      count++;
+    }
 
     const desawisata = await DesaWisata.findByPk(id_desawisata);
     if (!desawisata) {
@@ -16,6 +27,7 @@ exports.postAkomodasi = async (req, res) => {
 
     await Akomodasi.create({
       nama: nama,
+      slug: uniqueSlug,
       gambar: gambar,
       kategori: kategori,
       id_desawisata: id_desawisata,
@@ -62,6 +74,16 @@ exports.updateAkomodasi = async (req, res) => {
     }
     if (nama) {
       akomodasi.nama = nama;
+
+      let slug = slugify(nama, { lower: true, strict: true });
+
+      let uniqueSlug = slug;
+      let count = 1;
+      while (await Akomodasi.findOne({ where: { slug: uniqueSlug, id: { [Op.ne]: id } } })) {
+        uniqueSlug = `${slug}-${count}`;
+        count++;
+      }
+      akomodasi.slug = uniqueSlug;
     }
     if (gambar) {
       // Cek apakah ada gambar sebelumnya, jika ada maka hapus gambar sebelumnya
@@ -144,7 +166,7 @@ exports.deleteAkomodasi = async (req, res) => {
     console.error("Error :", error);
     return res
       .status(500)
-      .json({ message: "Terjadi kesalahan saat menghapus Akomodasi", error });
+      .json({ error: error.message });
   }
 };
 
@@ -158,7 +180,7 @@ exports.getOneAkomodasi = async (req, res) => {
     res.json(akomodasi);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   }
 };
 exports.getAkomodasiByIdDesa = async (req, res) => {
@@ -175,7 +197,7 @@ exports.getAkomodasiByIdDesa = async (req, res) => {
     res.json(akomodasi);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   }
 };
 exports.getAllAkomodasi = async (req, res) => {
@@ -186,7 +208,7 @@ exports.getAllAkomodasi = async (req, res) => {
     res.json(akomodasiList);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   }
 };
 
