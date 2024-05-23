@@ -3,12 +3,24 @@ const KategoriDestinasi = require("../models/kategoridestinasi");
 const DesaWisata = require("../models/desawisata");
 const fs = require("fs");
 const path = require("path");
+const slugify = require('slugify');
+const { Op } = require("sequelize")
 
 exports.postDestinasiWisata = async (req, res) => {
   try {
     const { nama, deskripsi, id_kategoridestinasi, id_desawisata } = req.body;
     //   cek apakah ada gambar di upload
     const gambar = req.file ? req.file.filename : null;
+
+    let slug = slugify(nama, { lower: true, strict: true });
+
+    let uniqueSlug = slug;
+    let count = 1;
+    while (await DestinasiWisata.findOne({ where: { slug: uniqueSlug } })) {
+      uniqueSlug = `${slug}-${count}`;
+      count++;
+    }
+
     const kategoriDestinasi = await KategoriDestinasi.findOne({
       where: { id: id_kategoridestinasi },
     });
@@ -27,6 +39,7 @@ exports.postDestinasiWisata = async (req, res) => {
 
     await DestinasiWisata.create({
       nama: nama,
+      slug: uniqueSlug,
       deskripsi: deskripsi,
       gambar: gambar,
       id_kategoridestinasi: kategoriDestinasi.id,
@@ -72,6 +85,17 @@ exports.updateDestinasiWisata = async (req, res) => {
     }
     if (nama) {
       destinasiWisata.nama = nama;
+
+      let slug = slugify(nama, { lower: true, strict: true });
+
+      let uniqueSlug = slug;
+      let count = 1;
+      while (await DestinasiWisata.findOne({ where: { slug: uniqueSlug, id: { [Op.ne]: id } } })) {
+        uniqueSlug = `${slug}-${count}`;
+        count++;
+      }
+
+      destinasiWisata.slug = uniqueSlug;
     }
     if (gambar) {
       // Cek apakah ada gambar sebelumnya, jika ada maka hapus gambar sebelumnya
@@ -109,7 +133,7 @@ exports.updateDestinasiWisata = async (req, res) => {
 
       // Validasi desawisata
       if (!desaWisata) {
-        throw new Error("Destinasi wisata tidak ditemukan");
+        throw new Error("Desa wisata tidak ditemukan");
       }
       destinasiWisata.id_desawisata = desaWisata.id;
     }
@@ -132,8 +156,7 @@ exports.updateDestinasiWisata = async (req, res) => {
     }
 
     return res.status(500).json({
-      message: "Terjadi kesalahan saat memperbarui Destinasi wisata",
-      error,
+      error: error.message
     });
   }
 };
@@ -144,7 +167,7 @@ exports.deleteDestinasiWisata = async (req, res) => {
     const destinasiwisata = await DestinasiWisata.findOne({ where: { id: id } });
 
     if (!destinasiwisata) {
-      return res.status(404).json({ message: "Desa Wisata tidak ditemukan" });
+      return res.status(404).json({ message: "Destinasi Wisata tidak ditemukan" });
     }
 
     const gambarDestinasiwisataLama = destinasiwisata.gambar;
@@ -176,7 +199,7 @@ exports.deleteDestinasiWisata = async (req, res) => {
     console.error("Error :", error);
     return res
       .status(500)
-      .json({ message: "Terjadi kesalahan saat menghapus destinasi wisata", error });
+      .json({ error: error.message });
   }
 };
 
@@ -192,7 +215,7 @@ exports.getOneDestinasiWisata = async (req, res) => {
     res.json(destinasiWisata);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   }
 };
 exports.getAllDestinasiWisata = async (req, res) => {
@@ -203,6 +226,6 @@ exports.getAllDestinasiWisata = async (req, res) => {
     res.json(destinasiWisataList);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   }
 };
