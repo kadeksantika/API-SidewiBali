@@ -175,7 +175,7 @@ exports.deleteAssetDestinasi = async (req, res) => {
     console.error("Error :", error);
     return res
       .status(500)
-      .json({ message: "Terjadi kesalahan saat menghapus AssetDestinasi", error });
+      .json({ error: error.message });
   }
 };
 
@@ -189,7 +189,7 @@ exports.getOneAssetDestinasi = async (req, res) => {
     res.json(assetDestinasi);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   }
 };
 exports.getAssetDestinasiByIdDesa = async (req, res) => {
@@ -206,7 +206,7 @@ exports.getAssetDestinasiByIdDesa = async (req, res) => {
     res.json(assetDestinasi);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   }
 };
 exports.getAllAssetDestinasi = async (req, res) => {
@@ -217,7 +217,7 @@ exports.getAllAssetDestinasi = async (req, res) => {
     res.json(assetDestinasiList);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   }
 };
 

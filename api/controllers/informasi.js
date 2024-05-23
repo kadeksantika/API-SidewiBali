@@ -123,8 +123,7 @@ exports.updateInformasi = async (req, res) => {
     }
 
     return res.status(500).json({
-      message: "Terjadi kesalahan saat memperbarui informasi",
-      error,
+      error: error.message
     });
   }
 };
@@ -163,7 +162,7 @@ exports.deleteInformasi = async (req, res) => {
       console.error("Error :", error);
       return res
         .status(500)
-        .json({ message: "Terjadi kesalahan saat menghapus informasi", error });
+        .json({ error: error.message });
     }
   };
   
@@ -177,7 +176,7 @@ exports.deleteInformasi = async (req, res) => {
       res.json(informasi);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Internal Server Error" });
+      res.status(500).json({ error: error.message });
     }
   };
   exports.getAllInformasi = async (req, res) => {
@@ -188,7 +187,7 @@ exports.deleteInformasi = async (req, res) => {
       res.json(informasiList);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Internal Server Error" });
+      res.status(500).json({ error: error.message });
     }
   };
 

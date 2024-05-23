@@ -8,7 +8,7 @@ exports.getAllNotifikasi = async (req, res) => {
         res.json(notifikasiList);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({error: error.message});
     }
 };
  
@@ -33,7 +33,7 @@ exports.postNotifikasi = async (req, res) => {
             res.status(400).json({ error: 'Constraint Error' });
         }else {
             console.error("Error while creating account:", error);
-            res.status(500).json({ error: "Internal Server Error" });
+            res.status(500).json({error: error.message});
         }
     }
 }
@@ -48,7 +48,7 @@ exports.getOneNotifikasi = async (req, res) => {
         res.json(kategoridestinasi);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({error: error.message});
     }
 }
 
@@ -80,7 +80,7 @@ exports.updateNotifikasi = async(req, res) => {
         return res.status(200).json({ message: "Notifikasi berhasil diperbarui", updatedNotifikasi: notif });
     } catch (error) {
         console.error("Error updating notifikasi:", error);
-        return res.status(500).json({ message: "Terjadi kesalahan saat memperbarui notifikasi", error });
+        return res.status(500).json({ error: error.message });
     }
 };
 
@@ -100,6 +100,6 @@ exports.deleteNotifikasi = async (req, res) => {
         }
     } catch (error) {
         console.error("Error deleting notifikasi:", error);
-        return res.status(500).json({ message: "Terjadi kesalahan saat menghapus notifikasi", error });
+        return res.status(500).json({ error: error.message });
     }
 };

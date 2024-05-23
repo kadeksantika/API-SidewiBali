@@ -10,7 +10,7 @@ exports.getAllAdminDesa = async (req, res) => {
         res.json(adminDesaList);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ error: error.message });
     }
 };
 
@@ -58,7 +58,7 @@ exports.postAdminDesa = async (req, res) => {
         //     res.status(400).json({ error: 'Constraint Error' });
         // }else {
         console.error("Error while creating admindesa:", error);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ error: error.message });
         // }
     }
 }
@@ -73,7 +73,7 @@ exports.getOneAdminDesa = async (req, res) => {
         res.json(admindesa);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ error: error.message });
     }
 }
 exports.getAdminDesaByIdAkun = async (req, res) => {
@@ -87,7 +87,7 @@ exports.getAdminDesaByIdAkun = async (req, res) => {
         res.json(admindesa);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ error: error.message });
     }
 }
 
@@ -141,7 +141,7 @@ exports.updateAdminDesa = async (req, res) => {
         return res.status(200).json({ message: "admin desa berhasil diperbarui", updatedAdminDesa: admindesa });
     } catch (error) {
         console.error("Error updating admin desa:", error);
-        return res.status(500).json({ message: "Terjadi kesalahan saat memperbarui admin desa", error });
+        return res.status(500).json({ error: error.message });
     }
 };
 
@@ -161,6 +161,6 @@ exports.deleteAdminDesa = async (req, res) => {
         }
     } catch (error) {
         console.error("Error deleting admin desa:", error);
-        return res.status(500).json({ message: "Terjadi kesalahan saat menghapus admin desa", error });
+        return res.status(500).json({error: error.message});
     }
 };

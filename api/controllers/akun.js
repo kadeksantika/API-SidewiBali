@@ -15,7 +15,7 @@ exports.getAllAkun = async (req, res) => {
     res.json(akunList);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -29,7 +29,7 @@ exports.getOneAkun = async (req, res) => {
     res.json(akun);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -86,7 +86,7 @@ exports.postAkun = async (req, res) => {
       res.status(400).json({ error: error.errors[0].message });
     } else {
       console.error("Error while creating account:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+      res.status(500).json({ error: error.message });
     }
   }
 };
@@ -136,7 +136,7 @@ exports.login = async (req, res) => {
     res.json(accessToken);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   }
 };
 // Login with refresh Token
@@ -220,7 +220,7 @@ exports.deleteAkun = async (req, res) => {
     }
   } catch (error) {
     console.error("Error deleting account:", error);
-    return res.status(500).json({ message: "Terjadi kesalahan saat menghapus akun", error });
+    return res.status(500).json({ error: error.message});
   }
 };
 
@@ -294,7 +294,7 @@ exports.updateAkun = async (req, res) => {
 
     return res
       .status(500)
-      .json({ message: "Terjadi kesalahan saat memperbarui akun", error });
+      .json({ error: error.message });
   }
 };
 
@@ -352,7 +352,9 @@ exports.logout = async (req, res) => {
     return res.sendStatus(200);
   } catch (error) {
     console.error(error);
-    return res.sendStatus(500);
+    return res
+      .status(500)
+      .json({ error: error.message });
   }
 };
 

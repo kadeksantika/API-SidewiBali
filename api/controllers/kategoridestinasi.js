@@ -8,7 +8,7 @@ exports.getAllKategoriDestinasi = async (req, res) => {
         res.json(kategoriDestinasiList);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ error: error.message });
     }
 };
  
@@ -27,7 +27,7 @@ exports.postKategoriDestinasi = async (req, res) => {
             res.status(400).json({ error: 'Constraint Error' });
         }else {
             console.error("Error while creating account:", error);
-            res.status(500).json({ error: "Internal Server Error" });
+            res.status(500).json({ error: error.message });
         }
     }
 }
@@ -42,7 +42,7 @@ exports.getOneKategoriDestinasi = async (req, res) => {
         res.json(kategoridestinasi);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ error: error.message });
     }
 }
 
@@ -67,7 +67,7 @@ exports.updateKategoriDestinasi = async(req, res) => {
         return res.status(200).json({ message: "Kategori destinasi berhasil diperbarui", updatedKategoriDestinasi: kategoridestinasi });
     } catch (error) {
         console.error("Error updating kategori destinasi:", error);
-        return res.status(500).json({ message: "Terjadi kesalahan saat memperbarui kategori destinasi", error });
+        return res.status(500).json({ error: error.message });
     }
 };
 
@@ -87,6 +87,6 @@ exports.deleteKategoriDestinasi = async (req, res) => {
         }
     } catch (error) {
         console.error("Error deleting kategori destinasi:", error);
-        return res.status(500).json({ message: "Terjadi kesalahan saat menghapus kategori destinasi", error });
+        return res.status(500).json({ error: error.message });
     }
 };

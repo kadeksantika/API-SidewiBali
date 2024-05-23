@@ -226,7 +226,7 @@ exports.deleteDesaWisata = async (req, res) => {
     console.error("Error :", error);
     return res
       .status(500)
-      .json({ message: "Terjadi kesalahan saat menghapus desa wisata", error });
+      .json({ error: error.message });
   }
 };
 
@@ -240,7 +240,7 @@ exports.getOneDesaWisata = async (req, res) => {
     res.json(desaWisata);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   }
 };
 exports.getAllDesaWisata = async (req, res) => {
@@ -251,7 +251,7 @@ exports.getAllDesaWisata = async (req, res) => {
     res.json(desaWisataList);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   }
 };
 
