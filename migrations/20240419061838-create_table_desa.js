@@ -71,6 +71,10 @@ module.exports = {
         type: Sequelize.STRING(25),
         allowNull: false
       },
+      slug: {
+        type: Sequelize.STRING(35),
+        allowNull: false
+      },
       deskripsi: {
         type: Sequelize.TEXT,
         allowNull: false
@@ -112,6 +116,10 @@ module.exports = {
       },
       nama: {
         type: Sequelize.STRING(50),
+        allowNull: false
+      },
+      slug: {
+        type: Sequelize.STRING(60),
         allowNull: false
       },
       gambar: {
@@ -190,6 +198,10 @@ module.exports = {
       },
       nama: {
         type: Sequelize.STRING(25),
+        allowNull: false
+      },
+      slug: {
+        type: Sequelize.STRING(35),
         allowNull: false
       },
       gambar: {
@@ -553,6 +565,10 @@ module.exports = {
         type: Sequelize.STRING(50),
         allowNull: false
       },
+      slug: {
+        type: Sequelize.STRING(60),
+        allowNull: false
+      },
       gambar: {
         type: Sequelize.TEXT,
         allowNull: false
@@ -635,6 +651,10 @@ module.exports = {
       },
       nama: {
         type: Sequelize.STRING(50),
+        allowNull: false
+      },
+      slug: {
+        type: Sequelize.STRING(60),
         allowNull: false
       },
       gambar: {

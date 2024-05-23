@@ -11,6 +11,13 @@ const desaWisata = db.define('tb_desawisata',{
             len: [1, 25]
         }
     },
+    slug: {
+        type: DataTypes.STRING,
+        validate: {
+          len: [1, 35],
+        },
+        allowNull: false,
+      },
     alamat: {
         type: DataTypes.TEXT,
         allowNull: false,

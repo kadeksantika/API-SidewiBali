@@ -11,6 +11,13 @@ const akomodasi = db.define(
         len: [1, 25],
       },
     },
+    slug: {
+      type: DataTypes.STRING,
+      validate: {
+        len: [1, 35],
+      },
+      allowNull: false,
+    },
     gambar: {
       type: DataTypes.TEXT,
       allowNull: false,

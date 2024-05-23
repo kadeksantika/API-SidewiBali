@@ -15,6 +15,13 @@ const produk = db.define(
         len: [1, 50],
       },
     },
+    slug: {
+      type: DataTypes.STRING,
+      validate: {
+        len: [1, 60],
+      },
+      allowNull: false,
+    },
     gambar: {
       type: DataTypes.TEXT,
       allowNull: false,
