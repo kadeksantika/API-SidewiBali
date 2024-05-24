@@ -15,6 +15,7 @@ const AdminDesaController = require("../controllers/admindesa");
 const NotifikasiController = require("../controllers/notifikasi");
 const InformasiController = require("../controllers/informasi");
 const PaketWisataController = require("../controllers/paketwisata");
+const ProdukController = require("../controllers/produk");
 const {checkAuth} = require("../middleware/checkAuth");
 const upload = require('../../config/multerConfig');
 
@@ -76,6 +77,15 @@ router.delete("/paketwisata/:id", PaketWisataController.deletePaketWisata );
 router.get("/paketwisata/:id", PaketWisataController.getOnePaketWisata );
 router.get("/paketwisata/desa/:id", PaketWisataController.getPaketWisataByIdDesa );
 router.get("/paketwisata", PaketWisataController.getAllPaketWisata );
+
+// Produk
+router.post("/produk/add",upload('produk').single('gambar'), ProdukController.postProduk);
+router.patch("/produk/:id",upload('produk').single('gambar'), ProdukController.updateProduk);
+router.delete("/produk/:id", ProdukController.deleteProduk );
+router.get("/produk/:id", ProdukController.getOneProduk );
+router.get("/produk/desa/:id", ProdukController.getProdukByIdDesa );
+router.get("/produk", ProdukController.getAllProduk );
+
 // Akomodasi
 router.post("/akomodasi/add",upload('akomodasi').single('gambar'), AkomodasiController.postAkomodasi);
 router.patch("/akomodasi/:id",upload('akomodasi').single('gambar'), AkomodasiController.updateAkomodasi);
