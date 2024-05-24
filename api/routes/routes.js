@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const AkunController = require("../controllers/akun");
 const DesaWisataController = require("../controllers/desawisata");
+const BeritaController = require("../controllers/berita");
+const DesaFavoritController = require("../controllers/desafavorit");
+const DestinasiFavoritController = require("../controllers/destinasifavorit");
 const AssetDesaController = require("../controllers/assetdesa");
 const AssetDestinasiController = require("../controllers/assetdestinasi");
 const AkomodasiController = require("../controllers/akomodasi");
@@ -32,6 +35,13 @@ router.delete("/desawisata/:id", DesaWisataController.deleteDesaWisata );
 router.get("/desawisata/:id", DesaWisataController.getOneDesaWisata );
 router.get("/desawisata", DesaWisataController.getAllDesaWisata );
 
+// Berita
+router.post("/berita/add",upload('berita').single('gambar'), BeritaController.postBerita);
+router.patch("/berita/:id",upload('berita').single('gambar'), BeritaController.updateBerita);
+router.delete("/berita/:id", BeritaController.deleteBerita );
+router.get("/berita/:id", BeritaController.getOneBerita );
+router.get("/berita/desa/:id", BeritaController.getBeritaByIdDesa );
+router.get("/berita", BeritaController.getAllBerita );
 // Asset Desa
 router.post("/assetdesa/add",upload('assetdesa').single('link'), AssetDesaController.postAssetDesa);
 router.patch("/assetdesa/:id",upload('assetdesa').single('link'), AssetDesaController.updateAssetDesa);
