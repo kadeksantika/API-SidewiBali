@@ -35,6 +35,11 @@ router.delete("/desawisata/:id", DesaWisataController.deleteDesaWisata );
 router.get("/desawisata/:id", DesaWisataController.getOneDesaWisata );
 router.get("/desawisata", DesaWisataController.getAllDesaWisata );
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
 // Berita
 router.post("/berita/add",upload('berita').single('gambar'), BeritaController.postBerita);
 router.patch("/berita/:id",upload('berita').single('gambar'), BeritaController.updateBerita);
@@ -42,6 +47,19 @@ router.delete("/berita/:id", BeritaController.deleteBerita );
 router.get("/berita/:id", BeritaController.getOneBerita );
 router.get("/berita/desa/:id", BeritaController.getBeritaByIdDesa );
 router.get("/berita", BeritaController.getAllBerita );
+<<<<<<< Updated upstream
+=======
+
+// Desa Favorit
+router.post("/desafavorit/add", DesaFavoritController.postDesaFavorit);
+router.patch("/desafavorit/:id", DesaFavoritController.updateDesaFavorit);
+router.delete("/desafavorit/:id", DesaFavoritController.deleteDesaFavorit );
+router.get("/desafavorit/:id", DesaFavoritController.getOneDesaFavorit );
+router.get("/desafavorit/akun/:id", DesaFavoritController.getDesaFavoritByIdAkun );
+router.get("/desafavorit", DesaFavoritController.getAllDesaFavorit );
+
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 // Asset Desa
 router.post("/assetdesa/add",upload('assetdesa').single('link'), AssetDesaController.postAssetDesa);
 router.patch("/assetdesa/:id",upload('assetdesa').single('link'), AssetDesaController.updateAssetDesa);
