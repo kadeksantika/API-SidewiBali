@@ -83,7 +83,7 @@ exports.updateDestinasiFavorit = async (req, res) => {
         const destinasifavorit = await DestinasiFavorit.findByPk(id);
 
         if (!destinasifavorit) {
-            return res.status(404).json({ message: "Favorit tidak ditemukan" });
+            return res.status(404).json({ message: "destinasi favorit tidak ditemukan" });
         }
 
         const destinasiwisata = await DestinasiWisata.findByPk(id_destinasiwisata);
@@ -105,7 +105,7 @@ exports.updateDestinasiFavorit = async (req, res) => {
 
         await destinasifavorit.save();
 
-        return res.status(200).json({ message: "desa favorit berhasil diperbarui", updatedDestinasiFavorit: destinasifavorit });
+        return res.status(200).json({ message: "destinasi favorit berhasil diperbarui", updatedDestinasiFavorit: destinasifavorit });
     } catch (error) {
         console.error("Error updating destinasi favorit:", error);
         return res.status(500).json({ error: error.message });
@@ -122,12 +122,12 @@ exports.deleteDestinasiFavorit = async (req, res) => {
             }
         });
         if (deleteddestinasifavorit > 0) {
-            return res.status(200).json({ message: "desa favorit berhasil dihapus" });
+            return res.status(200).json({ message: "destinasi favorit berhasil dihapus" });
         } else {
-            return res.status(404).json({ message: "desa favorit tidak ditemukan" });
+            return res.status(404).json({ message: "destinasi favorit tidak ditemukan" });
         }
     } catch (error) {
-        console.error("Error deleting desa favorit:", error);
+        console.error("Error deleting destinasi favorit:", error);
         return res.status(500).json({error: error.message});
     }
 };
