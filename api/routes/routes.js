@@ -15,6 +15,7 @@ const KategoriDestinasiController = require("../controllers/kategoridestinasi");
 const AdminDesaController = require("../controllers/admindesa");
 const NotifikasiController = require("../controllers/notifikasi");
 const InformasiController = require("../controllers/informasi");
+const PaketWisataController = require("../controllers/paketwisata");
 const {checkAuth} = require("../middleware/checkAuth");
 const upload = require('../../config/multerConfig');
 
@@ -36,6 +37,14 @@ router.patch("/desawisata/:id",upload('desawisata').single('gambar'), DesaWisata
 router.delete("/desawisata/:id", DesaWisataController.deleteDesaWisata );
 router.get("/desawisata/:id", DesaWisataController.getOneDesaWisata );
 router.get("/desawisata", DesaWisataController.getAllDesaWisata );
+
+// PaketWisata
+router.post("/paketwisata/add",upload('paketwisata').single('gambar'), PaketWisataController.postPaketWisata);
+router.patch("/paketwisata/:id",upload('paketwisata').single('gambar'), PaketWisataController.updatePaketWisata);
+router.delete("/paketwisata/:id", PaketWisataController.deletePaketWisata );
+router.get("/paketwisata/:id", PaketWisataController.getOnePaketWisata );
+router.get("/paketwisata/desa/:id", PaketWisataController.getPaketWisataByIdDesa );
+router.get("/paketwisata", PaketWisataController.getAllPaketWisata );
 
 // Berita
 router.post("/berita/add",upload('berita').single('gambar'), BeritaController.postBerita);
