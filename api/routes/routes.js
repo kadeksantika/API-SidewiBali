@@ -8,6 +8,7 @@ const DestinasiFavoritController = require("../controllers/destinasifavorit");
 const AssetDesaController = require("../controllers/assetdesa");
 const AssetDestinasiController = require("../controllers/assetdestinasi");
 const AkomodasiController = require("../controllers/akomodasi");
+const FasilitasController = require("../controllers/fasilitas");
 const DestinasiWisataController = require("../controllers/destinasiwisata");
 const KategoriDestinasiController = require("../controllers/kategoridestinasi");
 const AdminDesaController = require("../controllers/admindesa");
@@ -103,6 +104,14 @@ router.delete("/destinasifavorit/:id", DestinasiFavoritController.deleteDestinas
 router.get("/destinasifavorit/:id", DestinasiFavoritController.getOneDestinasiFavorit );
 router.get("/destinasifavorit/akun/:id", DestinasiFavoritController.getDestinasiFavoritByIdAkun );
 router.get("/destinasifavorit", DestinasiFavoritController.getAllDestinasiFavorit );
+
+// Fasilitas 
+router.post("/fasilitas/add", FasilitasController.postFasilitas);
+router.patch("/fasilitas/:id", FasilitasController.updateFasilitas);
+router.delete("/fasilitas/:id", FasilitasController.deleteFasilitas );
+router.get("/fasilitas/:id", FasilitasController.getOneFasilitas );
+router.get("/fasilitas/destinasi/:id", FasilitasController.getFasilitasByIdDestinasi );
+router.get("/fasilitas", FasilitasController.getAllFasilitas );
 
 // Asset Destinasi
 router.post("/assetDestinasi/add",upload('assetDestinasi').single('link'), AssetDestinasiController.postAssetDestinasi);
