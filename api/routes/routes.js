@@ -7,7 +7,6 @@ const DesaFavoritController = require("../controllers/desafavorit");
 const DestinasiFavoritController = require("../controllers/destinasifavorit");
 const AssetDesaController = require("../controllers/assetdesa");
 const AssetDestinasiController = require("../controllers/assetdestinasi");
-const PaketWisataController = require("../controllers/paketwisata");
 const AkomodasiController = require("../controllers/akomodasi");
 const FasilitasController = require("../controllers/fasilitas");
 const DestinasiWisataController = require("../controllers/destinasiwisata");
