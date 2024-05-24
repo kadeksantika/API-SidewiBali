@@ -35,11 +35,6 @@ router.delete("/desawisata/:id", DesaWisataController.deleteDesaWisata );
 router.get("/desawisata/:id", DesaWisataController.getOneDesaWisata );
 router.get("/desawisata", DesaWisataController.getAllDesaWisata );
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
 // Berita
 router.post("/berita/add",upload('berita').single('gambar'), BeritaController.postBerita);
 router.patch("/berita/:id",upload('berita').single('gambar'), BeritaController.updateBerita);
@@ -47,8 +42,6 @@ router.delete("/berita/:id", BeritaController.deleteBerita );
 router.get("/berita/:id", BeritaController.getOneBerita );
 router.get("/berita/desa/:id", BeritaController.getBeritaByIdDesa );
 router.get("/berita", BeritaController.getAllBerita );
-<<<<<<< Updated upstream
-=======
 
 // Desa Favorit
 router.post("/desafavorit/add", DesaFavoritController.postDesaFavorit);
@@ -58,8 +51,6 @@ router.get("/desafavorit/:id", DesaFavoritController.getOneDesaFavorit );
 router.get("/desafavorit/akun/:id", DesaFavoritController.getDesaFavoritByIdAkun );
 router.get("/desafavorit", DesaFavoritController.getAllDesaFavorit );
 
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 // Asset Desa
 router.post("/assetdesa/add",upload('assetdesa').single('link'), AssetDesaController.postAssetDesa);
 router.patch("/assetdesa/:id",upload('assetdesa').single('link'), AssetDesaController.updateAssetDesa);
@@ -104,6 +95,14 @@ router.patch("/destinasiwisata/:id",upload('destinasiwisata').single('gambar'), 
 router.delete("/destinasiwisata/:id", DestinasiWisataController.deleteDestinasiWisata );
 router.get("/destinasiwisata/:id", DestinasiWisataController.getOneDestinasiWisata );
 router.get("/destinasiwisata", DestinasiWisataController.getAllDestinasiWisata );
+
+// Destinasi Favorit
+router.post("/destinasifavorit/add", DestinasiFavoritController.postDestinasiFavorit);
+router.patch("/destinasifavorit/:id", DestinasiFavoritController.updateDestinasiFavorit);
+router.delete("/destinasifavorit/:id", DestinasiFavoritController.deleteDestinasiFavorit );
+router.get("/destinasifavorit/:id", DestinasiFavoritController.getOneDestinasiFavorit );
+router.get("/destinasifavorit/akun/:id", DestinasiFavoritController.getDestinasiFavoritByIdAkun );
+router.get("/destinasifavorit", DestinasiFavoritController.getAllDestinasiFavorit );
 
 // Asset Destinasi
 router.post("/assetDestinasi/add",upload('assetDestinasi').single('link'), AssetDestinasiController.postAssetDestinasi);
