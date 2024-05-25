@@ -16,6 +16,7 @@ const NotifikasiController = require("../controllers/notifikasi");
 const InformasiController = require("../controllers/informasi");
 const PaketWisataController = require("../controllers/paketwisata");
 const ProdukController = require("../controllers/produk");
+const ReviewDestinasiController = require("../controllers/reviewdestinasi");
 const {checkAuth} = require("../middleware/checkAuth");
 const upload = require('../../config/multerConfig');
 
@@ -100,6 +101,15 @@ router.get("/kategoridestinasi/:id", KategoriDestinasiController.getOneKategoriD
 router.get("/kategoridestinasi", KategoriDestinasiController.getAllKategoriDestinasi );
 router.patch("/kategoridestinasi/:id", KategoriDestinasiController.updateKategoriDestinasi);
 router.delete("/kategoridestinasi/:id", KategoriDestinasiController.deleteKategoriDestinasi );
+
+// Review Destinasi
+router.post("/reviewdestinasi/add", ReviewDestinasiController.postReviewDestinasi);
+router.get("/reviewdestinasi/:id", ReviewDestinasiController.getOneReviewDestinasi );
+router.get("/reviewdestinasi/akun/:id", ReviewDestinasiController.getReviewDestinasiByIdAkun );
+router.get("/reviewdestinasi/destinasi/:id", ReviewDestinasiController.getReviewDestinasiByIdDestinasi );
+router.get("/reviewdestinasi", ReviewDestinasiController.getAllReviewDestinasi );
+router.patch("/reviewdestinasi/:id", ReviewDestinasiController.updateReviewDestinasi);
+router.delete("/reviewdestinasi/:id", ReviewDestinasiController.deleteReviewDestinasi );
 
 // Admin desa
 router.post("/admindesa/add", AdminDesaController.postAdminDesa);

@@ -722,13 +722,10 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false
       },
-      tgl_upload: {
-        type: Sequelize.DATE,
-        allowNull: false
-      },
       setujui: {
         type: Sequelize.BOOLEAN,
-        allowNull: false
+        allowNull: false,
+        defaultValue:0
       },
       createdAt: {
         type: Sequelize.DATE,
