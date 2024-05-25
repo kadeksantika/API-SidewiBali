@@ -49,7 +49,7 @@ exports.postDesaFavorit = async (req, res) => {
 exports.getOneDesaFavorit = async (req, res) => {
     const { id } = req.params;
     try {
-        const desafavorit = await DesaFavorit.findAll({ where: { id: id } });
+        const desafavorit = await DesaFavorit.findOne({ where: { id: id } });
         if (!desafavorit) {
             return res.status(404).json({ error: "Not found" });
         }

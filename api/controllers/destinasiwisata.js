@@ -218,6 +218,21 @@ exports.getOneDestinasiWisata = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+exports.getDestinasiWisataByIdDesa = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const destinasiWisata = await DestinasiWisata.findAll({
+      where: { id_desawisata: id },
+    });
+    if (!destinasiWisata) {
+      return res.status(404).json({ error: "Destinasi wisata tidak ditemukan" });
+    }
+    res.json(destinasiWisata);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+};
 exports.getAllDestinasiWisata = async (req, res) => {
   try {
     const destinasiWisataList = await DestinasiWisata.findAll({

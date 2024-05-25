@@ -122,6 +122,7 @@ router.delete("/admindesa/:id", AdminDesaController.deleteAdminDesa );
 // Notifikasi
 router.post("/notifikasi/add", NotifikasiController.postNotifikasi);
 router.get("/notifikasi/:id", NotifikasiController.getOneNotifikasi );
+router.get("/notifikasi/akun/:id", NotifikasiController.getNotifikasiByIdAkun );
 router.get("/notifikasi", NotifikasiController.getAllNotifikasi );
 router.patch("/notifikasi/:id", NotifikasiController.updateNotifikasi);
 router.delete("/notifikasi/:id", NotifikasiController.deleteNotifikasi );
@@ -131,6 +132,7 @@ router.post("/destinasiwisata/add",upload('destinasiwisata').single('gambar'), D
 router.patch("/destinasiwisata/:id",upload('destinasiwisata').single('gambar'), DestinasiWisataController.updateDestinasiWisata);
 router.delete("/destinasiwisata/:id", DestinasiWisataController.deleteDestinasiWisata );
 router.get("/destinasiwisata/:id", DestinasiWisataController.getOneDestinasiWisata );
+router.get("/destinasiwisata/desa/:id", DestinasiWisataController.getDestinasiWisataByIdDesa );
 router.get("/destinasiwisata", DestinasiWisataController.getAllDestinasiWisata );
 
 // Destinasi Favorit
@@ -158,10 +160,11 @@ router.get("/assetDestinasi/destinasi/:id", AssetDestinasiController.getAssetDes
 router.get("/assetDestinasi", AssetDestinasiController.getAllAssetDestinasi );
 
 // Informasi
-router.post("/informasi/add",upload('informasi').single('gambar'), InformasiController.postInformasi);
-router.patch("/informasi/:id",upload('informasi').single('gambar'), InformasiController.updateInformasi);
+router.post("/informasi/add", InformasiController.postInformasi);
+router.patch("/informasi/:id", InformasiController.updateInformasi);
 router.delete("/informasi/:id", InformasiController.deleteInformasi );
 router.get("/informasi/:id", InformasiController.getOneInformasi );
+router.get("/informasi/desa/:id", InformasiController.getInformasiByIdDesa );
 router.get("/informasi", InformasiController.getAllInformasi );
 
 // Export

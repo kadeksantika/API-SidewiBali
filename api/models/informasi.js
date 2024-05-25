@@ -4,18 +4,6 @@ const db = require("../../config/database");
 const informasi = db.define(
   "tb_informasi",
   {
-    gambar: {
-      type: DataTypes.TEXT,
-    },
-    alamat: {
-      type: DataTypes.TEXT,
-    },
-    nama: {
-        type: DataTypes.STRING,
-        validate: {
-            len: [1, 25]
-        }
-    },
     no_telp: {
         type: DataTypes.STRING,
         validate: {

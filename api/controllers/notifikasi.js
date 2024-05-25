@@ -41,7 +41,20 @@ exports.postNotifikasi = async (req, res) => {
 exports.getOneNotifikasi = async (req, res) => {
     const { id } = req.params;
     try {
-        const kategoridestinasi = await notifikasi.findAll({ where: { id:id } });
+        const kategoridestinasi = await notifikasi.findOne({ where: { id:id } });
+        if (!kategoridestinasi) {
+            return res.status(404).json({ error: "Not found" });
+        }
+        res.json(kategoridestinasi);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({error: error.message});
+    }
+}
+exports.getNotifikasiByIdAkun = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const kategoridestinasi = await notifikasi.findAll({ where: { id_akun:id } });
         if (!kategoridestinasi) {
             return res.status(404).json({ error: "Not found" });
         }

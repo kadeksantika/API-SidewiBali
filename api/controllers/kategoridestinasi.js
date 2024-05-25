@@ -35,7 +35,7 @@ exports.postKategoriDestinasi = async (req, res) => {
 exports.getOneKategoriDestinasi = async (req, res) => {
     const { id } = req.params;
     try {
-        const kategoridestinasi = await kategoriDestinasi.findAll({ where: { id:id } });
+        const kategoridestinasi = await kategoriDestinasi.findOne({ where: { id:id } });
         if (!kategoridestinasi) {
             return res.status(404).json({ error: "Not found" });
         }

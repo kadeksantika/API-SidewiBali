@@ -432,18 +432,6 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true
       },
-      gambar: {
-        type: Sequelize.TEXT,
-        allowNull: false
-      },
-      alamat: {
-        type: Sequelize.TEXT,
-        allowNull: false
-      },
-      nama: {
-        type: Sequelize.STRING(25),
-        allowNull: false
-      },
       no_telp: {
         type: Sequelize.STRING(15),
         allowNull: false

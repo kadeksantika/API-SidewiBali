@@ -66,7 +66,7 @@ exports.postAdminDesa = async (req, res) => {
 exports.getOneAdminDesa = async (req, res) => {
     const { id } = req.params;
     try {
-        const admindesa = await adminDesa.findAll({ where: { id: id } });
+        const admindesa = await adminDesa.findOne({ where: { id: id } });
         if (!admindesa) {
             return res.status(404).json({ error: "Not found" });
         }
