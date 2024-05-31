@@ -192,6 +192,12 @@ module.exports = {
     });
 
     await queryInterface.createTable('tb_admindesa', {
+      id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
+      },
       id_desawisata: {
         type: Sequelize.INTEGER,
         allowNull: false,
