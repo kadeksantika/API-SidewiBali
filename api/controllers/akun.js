@@ -35,7 +35,7 @@ exports.getOneAkun = async (req, res) => {
 
 exports.postAkun = async (req, res) => {
   try {
-    const { nama, email, password } = req.body;
+    const { nama, email, password ,no_telp} = req.body;
     const foto = req.file ? req.file.filename : null;
     let role = req.body ? req.body.role : null;
 
@@ -59,6 +59,7 @@ exports.postAkun = async (req, res) => {
       nama: nama,
       email: email,
       password: hashPassword,
+      no_telp: no_telp,
       foto: foto,
       role: role,
     });
@@ -227,7 +228,7 @@ exports.deleteAkun = async (req, res) => {
 exports.updateAkun = async (req, res) => {
   try {
     const id_akun = parseInt(req.params.id_akun);
-    const { nama, email, password } = req.body;
+    const { nama, email, password,no_telp } = req.body;
     const foto = req.file ? req.file.filename : null;
     let role = req.body ? req.body.role : null;
 
@@ -243,6 +244,9 @@ exports.updateAkun = async (req, res) => {
     }
     if (email) {
       akun.email = email;
+    }
+    if (no_telp) {
+      akun.no_telp = no_telp;
     }
     if (password) {
       const salt = await bcrypt.genSalt();

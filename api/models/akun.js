@@ -34,6 +34,13 @@ const Akun = db.define('tb_akun',{
         allowNull: false,
         defaultValue: 'USER'
     },
+    no_telp: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            len: [1, 15]
+        }
+    },
     token: {
         type: DataTypes.TEXT,
         allowNull: true

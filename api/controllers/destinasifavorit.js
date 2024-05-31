@@ -49,7 +49,7 @@ exports.postDestinasiFavorit = async (req, res) => {
 exports.getOneDestinasiFavorit = async (req, res) => {
     const { id } = req.params;
     try {
-        const destinasifavorit = await DestinasiFavorit.findAll({ where: { id: id } });
+        const destinasifavorit = await DestinasiFavorit.findOne({ where: { id: id } });
         if (!destinasifavorit) {
             return res.status(404).json({ error: "Not found" });
         }
