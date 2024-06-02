@@ -1,5 +1,4 @@
 require("dotenv").config();
-const fs = require('fs');
 
 module.exports = {
   development: {
@@ -17,9 +16,6 @@ module.exports = {
     host: '127.0.0.1',
     port: 3306,
     dialect: 'mysql',
-    dialectOptions: {
-      bigNumberStrings: true,
-    },
   },
   production: {
     username: process.env.PROD_DB_USERNAME,
@@ -28,11 +24,5 @@ module.exports = {
     host: process.env.PROD_DB_HOSTNAME,
     port: process.env.PROD_DB_PORT,
     dialect: 'mysql',
-    dialectOptions: {
-      bigNumberStrings: true,
-      ssl: {
-        ca: fs.readFileSync(__dirname + '/mysql-ca-main.crt'),
-      },
-    },
   },
 };
