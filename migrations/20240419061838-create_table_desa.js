@@ -39,7 +39,7 @@ module.exports = {
       },
       token: {
         type: Sequelize.TEXT,
-        allowNull: false,
+        allowNull: true,
         defaultValue: null
       },
       createdAt: {
