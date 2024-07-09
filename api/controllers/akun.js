@@ -33,6 +33,20 @@ exports.getOneAkun = async (req, res) => {
   }
 };
 
+exports.getDetailAkun = async (req, res) => {
+  try {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (token == null) return res.sendStatus(401);
+    const akun = await Akun.findOne({ where: { token: token } })
+    
+    res.json(akun);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+};
+
 exports.postAkun = async (req, res) => {
   try {
     const { nama, email, password ,no_telp} = req.body;
