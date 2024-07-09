@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 const morgan = require("morgan");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -9,9 +10,11 @@ require('dotenv').config();
 
 
 app.use(morgan("dev"));
-app.use(express.static('uploads'))
+// app.use(express.static('uploads'))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use("/resource", express.static(path.join(__dirname, "uploads/resource")));
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
