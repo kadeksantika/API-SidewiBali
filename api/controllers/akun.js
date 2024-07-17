@@ -8,7 +8,7 @@ const path = require('path');
 exports.getAllAkun = async (req, res) => {
   try {
     const akunList = await Akun.findAll({
-      attributes: { exclude: ["token","password"] },
+      attributes: { exclude: ["token", "password"] },
     });
     const accessTokenCookies = req.cookies.accessToken;
     console.log("Access token:", accessTokenCookies);
@@ -35,7 +35,7 @@ exports.getOneAkun = async (req, res) => {
 
 exports.postAkun = async (req, res) => {
   try {
-    const { nama, email, password ,no_telp} = req.body;
+    const { nama, email, password, no_telp } = req.body;
     const foto = req.file ? req.file.filename : null;
     let role = req.body ? req.body.role : null;
 
@@ -113,8 +113,12 @@ exports.login = async (req, res) => {
     const id = akun[0].id;
     const nama = akun[0].nama;
     const email = akun[0].email;
+    const foto = akun[0].foto;
+    const no_telp = akun[0].no_telp;
+    const createdAt = akun[0].createdAt;
+    const updatedAt = akun[0].updatedAt;
     const accessToken = jwt.sign(
-      { id, nama, email },
+      { id, nama, email, foto, createdAt, no_telp, updatedAt },
       process.env.ACCESS_TOKEN_SECRET
       //   ,
       //   {
@@ -221,14 +225,14 @@ exports.deleteAkun = async (req, res) => {
     }
   } catch (error) {
     console.error("Error deleting account:", error);
-    return res.status(500).json({ error: error.message});
+    return res.status(500).json({ error: error.message });
   }
 };
 
 exports.updateAkun = async (req, res) => {
   try {
     const id_akun = parseInt(req.params.id_akun);
-    const { nama, email, password,no_telp } = req.body;
+    const { nama, email, password, no_telp } = req.body;
     const foto = req.file ? req.file.filename : null;
     let role = req.body ? req.body.role : null;
 
@@ -336,11 +340,15 @@ exports.refreshToken = async (req, res) => {
 };
 exports.logout = async (req, res) => {
   try {
-    // return res.json()
-    const accessToken = req.cookies.accessToken;
+    let accessToken
+    if (req.cookies.accessToken === undefined) {
+      accessToken = req.body;
+    } else {
+      accessToken = req.cookies.accessToken;
+    }
 
-    if (!accessToken) return res.sendStatus(401);
-    const decoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+    if (!accessToken.accessToken) return res.sendStatus(401);
+    const decoded = jwt.verify(accessToken.accessToken, process.env.ACCESS_TOKEN_SECRET);
 
     const id = decoded.id;
     await Akun.update(
@@ -352,7 +360,7 @@ exports.logout = async (req, res) => {
       }
     );
     res.clearCookie("accessToken");
-
+ 
     return res.sendStatus(200);
   } catch (error) {
     console.error(error);
