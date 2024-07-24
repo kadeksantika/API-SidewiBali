@@ -4,8 +4,9 @@ const Akun = require("../models/akun");
 
 exports.postReviewDestinasi = async (req, res) => {
   try {
-    const { rating, review, id_destinasiwisata, id_akun } = req.body;
+    const {review, id_destinasiwisata, id_akun } = req.body;
     let setujui = req.body.setujui
+    let rating = req.body.rating
 
     const destinasiWisata = await DestinasiWisata.findOne({
       where: { id: id_destinasiwisata },
@@ -22,6 +23,13 @@ exports.postReviewDestinasi = async (req, res) => {
     // Validasi akun
     if (!akun) {
       throw new Error("Akun tidak ditemukan");
+    }
+
+    if(rating > 5){
+      rating = 5;
+    }
+    if(rating < 1){
+      rating = 1;
     }
     
     // Validasi status setujui

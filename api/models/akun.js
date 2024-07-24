@@ -1,3 +1,4 @@
+// -- Active: 1719279037519@@127.0.0.1@3306@db_sidewi_provbali
 const { DataTypes } = require('sequelize');
 const db = require('../../config/database');
 
