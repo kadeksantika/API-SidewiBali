@@ -120,7 +120,7 @@ exports.deleteInformasi = async (req, res) => {
   exports.getInformasiByIdDesa = async (req, res) => {
     const { id } = req.params;
     try {
-      const informasi = await Informasi.findAll({ where: { id_desawisata: id} });
+      const informasi = await Informasi.findOne({ where: { id_desawisata: id} });
       if (!informasi) {
         return res.status(404).json({ error: "Informasi tidak ditemukan" });
       }
