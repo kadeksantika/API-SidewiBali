@@ -16,17 +16,30 @@ exports.getAllDesaFavorit = async (req, res) => {
 
 exports.postDesaFavorit = async (req, res) => {
     try {
-        const { id_akun, id_desawisata } = req.body
+        const { id_akun, id_desawisata } = req.body;
 
         const desawisata = await desaWisata.findByPk(id_desawisata);
 
         if (!desawisata) {
-            return res.status(404).json({ message: "Favorit tidak ditemukan" });
+            return res.status(404).json({ message: "Desa wisata tidak ditemukan" });
         }
+        
         const akunlist = await akun.findByPk(id_akun);
 
         if (!akunlist) {
-            return res.status(404).json({ message: "akun tidak ditemukan" });
+            return res.status(404).json({ message: "Akun tidak ditemukan" });
+        }
+
+        // Check if the desa wisata is already a favorite for the user
+        const existingFavorit = await DesaFavorit.findOne({
+            where: {
+                id_akun: id_akun,
+                id_desawisata: id_desawisata
+            }
+        });
+
+        if (existingFavorit) {
+            return res.status(400).json({ message: "Desa wisata sudah ada di favorit" });
         }
 
         await DesaFavorit.create({
@@ -34,15 +47,10 @@ exports.postDesaFavorit = async (req, res) => {
             id_desawisata: id_desawisata
         });
 
-        return res.json({ msg: "Add successful" })
+        return res.json({ msg: "Add successful" });
     } catch (error) {
         console.error(error);
-        // if (error.DesaFavorit === 'SequelizeUniqueConstraintError') {
-        //     res.status(400).json({ error: 'Constraint Error' });
-        // }else {
-        console.error("Error while creating desafavorit:", error);
         res.status(500).json({ error: error.message });
-        // }
     }
 }
 

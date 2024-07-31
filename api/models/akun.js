@@ -1,3 +1,4 @@
+// -- Active: 1719279037519@@127.0.0.1@3306@db_sidewi_provbali
 const { DataTypes } = require('sequelize');
 const db = require('../../config/database');
 
@@ -36,9 +37,9 @@ const Akun = db.define('tb_akun',{
     },
     no_telp: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
-            len: [1, 15]
+            len: [0, 15]
         }
     },
     token: {
